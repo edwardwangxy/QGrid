@@ -109,9 +109,9 @@ public struct QGrid<Data, Content>: View
                             isLastRow: true)
           }
         }
+        .padding(.horizontal, self.hPadding)
+        .padding(.vertical, self.vPadding)
       }
-      .padding(.horizontal, self.hPadding)
-      .padding(.vertical, self.vPadding)
     }
   }
   
