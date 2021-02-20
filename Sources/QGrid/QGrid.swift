@@ -41,6 +41,8 @@ public struct QGrid<Data, Content>: View
   private let hSpacing: CGFloat
   private let vPadding: CGFloat
   private let hPadding: CGFloat
+    private let topPadding: CGFloat
+    private let bottomPadding: CGFloat
   private let data: [Data.Element]
   private let content: (Data.Element) -> Content
     private let canScroll: Bool
@@ -64,7 +66,9 @@ public struct QGrid<Data, Content>: View
               vSpacing: CGFloat = 10,
               hSpacing: CGFloat = 10,
               vPadding: CGFloat = 10,
-              hPadding: CGFloat = 10,
+              hPadding: CGFloat = 0,
+              topPadding: CGFloat = 10,
+              bottomPadding: CGFloat = 10,
               canScroll: Bool = true,
               content: @escaping (Data.Element) -> Content) {
     self.data = data.map { $0 }
@@ -75,6 +79,13 @@ public struct QGrid<Data, Content>: View
     self.hSpacing = hSpacing
     self.vPadding = vPadding
     self.hPadding = hPadding
+    if self.vPadding != 0 {
+        self.topPadding = vPadding
+        self.bottomPadding = vPadding
+    } else {
+        self.topPadding = topPadding
+        self.bottomPadding = bottomPadding
+    }
     self.canScroll = canScroll
   }
   
@@ -112,7 +123,8 @@ public struct QGrid<Data, Content>: View
                 }
               }
               .padding(.horizontal, self.hPadding)
-              .padding(.vertical, self.vPadding)
+              .padding(.top, self.topPadding)
+              .padding(.bottom, self.bottomPadding)
             }
         } else {
             VStack(spacing: self.vSpacing) {
@@ -128,7 +140,8 @@ public struct QGrid<Data, Content>: View
               }
             }
             .padding(.horizontal, self.hPadding)
-            .padding(.vertical, self.vPadding)
+            .padding(.top, self.topPadding)
+            .padding(.bottom, self.bottomPadding)
         }
     }
   }
